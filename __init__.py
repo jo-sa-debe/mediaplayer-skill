@@ -1,4 +1,6 @@
 from mycroft import MycroftSkill, intent_file_handler
+from mycroft.messagebus import message
+from mycroft.skills.audioservice import AudioService
 
 
 class Mediaplayer(MycroftSkill):
@@ -6,6 +8,7 @@ class Mediaplayer(MycroftSkill):
         MycroftSkill.__init__(self)
 
     def initialize(self): 
+        super().initialize()
         self.add_event('mycroft.audio.service.next', self.play_next)
         self.add_event('mycroft.audio.service.prev', self.play_prev)
         self.add_event('mycroft.audio.service.resume', self.play_resume)
@@ -18,7 +21,7 @@ class Mediaplayer(MycroftSkill):
     @intent_file_handler('mediaplayer.intent')
     def handle_mediaplayer(self, message):
         self.speak_dialog('mediaplayer')
-        self.play_next()
+        self.bus.emit(Message('mycroft.audio.service.next'))
 
 
     def play_next(self, message):
