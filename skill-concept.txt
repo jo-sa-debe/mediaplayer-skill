@@ -1,0 +1,91 @@
+General purpose of the skill
+============================
+
+control playback of local media : audio and video
+
+it should be possible to trigger local media players like VLC, mpv and sorts to play media that are stored locally
+or mounted to one of the local drives.
+If the player supports other options as well, these could also be supported.
+Specialized cloud services are not considered here.
+
+For this used the mycroft messages bus and the playback control functions
+
+
+Goals and Priorities
+====================
+
+01) Main priority
+-----------------
+Be able to control audio playback using mpv, VLC or similar
+
+
+Limitations
+===========
+The skill will only be made available for language en-us
+
+
+Prerequisites
+=============
+have the corresponding player installed. -> include it in the skill?
+
+
+Interactions
+============
+
+Player control
+--------------
+
+user: play <song> 
+mycroft: -- start playing
+
+user: play <artist>
+mycroft: -- start playing random song from <artist>
+user: next song|track
+mycroft: -- start playing next random song from <artist>
+
+user: play <song>|<artist> on <device>
+mycroft: -- start playing song on specific device
+
+user: stop
+mycroft: -- stop playing
+
+user: pause
+mycroft: -- pause playing
+
+user: continue|continue playback|play
+mycroft: -- start playing again
+
+user: mute
+mycroft: -- mute playback
+
+user: unmute
+mycroft: -- unmute playback
+
+user: fastforward|rewind <x> seconds
+mycroft: -- fast forward|rewind <x> seconds
+
+Track info
+----------
+
+user: what (track) is playing? 
+mycroft: currently playing is: <song> from <artist>
+
+user: what is this song called?
+mycroft: this track is called: <song>
+user: who is this (music)|it from? | what is the artist?
+mycroft: it is from <artist>.
+
+user: which artist is playing? | who's music is this?
+mycroft: this is <artist> playing.
+
+Error handling
+--------------
+error: no song/track not found
+mycroft: Sorry I could not find <song>|<artist>.
+
+
+Help
+----
+user: help with play
+
+
