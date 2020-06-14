@@ -18,9 +18,11 @@ class Mediaplayer(MycroftSkill):
     @intent_file_handler('mediaplayer.intent')
     def handle_mediaplayer(self, message):
         self.speak_dialog('mediaplayer')
+        self.play_next()
 
 
     def play_next(self, message):
+        self.speak("this is the play next method")
         pass
 
     def play_prev(self, message):
@@ -44,7 +46,7 @@ class Mediaplayer(MycroftSkill):
     def track_info_reply(self):
         pass
 
-    
+
 
 
 def create_skill():
