@@ -1,5 +1,5 @@
 from mycroft import MycroftSkill, intent_file_handler
-from mycroft.messagebus import message
+from mycroft.messagebus import Message
 from mycroft.skills.audioservice import AudioService
 
 
