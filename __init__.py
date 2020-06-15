@@ -16,14 +16,14 @@ class Mediaplayer(MycroftSkill):
         self.add_event('mycroft.audio.service.stop', self.play_stop)
         self.add_event('mycroft.audio.service.track_info', self.track_info)
         self.add_event('mycroft.audio.service.track_info_reply', self.track_info_reply)
-        self.audios_service = AudioService(self.bus)
+        self.audio_service = AudioService(self.bus)
 
 
     @intent_file_handler('mediaplayer.intent')
     def handle_mediaplayer(self, message):
         self.speak_dialog('mediaplayer')
         self.speak("looking for backends.")
-        for backend in audios_service.available_backends().keys():
+        for backend in self.audio_service.available_backends().keys():
             backend_text = "found " + str(backend)
             self.speak(backend_text)
         self.bus.emit(Message('mycroft.audio.service.next'))
