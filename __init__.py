@@ -21,7 +21,7 @@ class Mediaplayer(MycroftSkill):
     @intent_file_handler('mediaplayer.intent')
     def handle_mediaplayer(self, message):
         self.speak_dialog('mediaplayer')
-        self.bus.emit(message('mycroft.audio.service.next'))
+        self.bus.emit(Message('mycroft.audio.service.next'))
 
 
     def play_next(self, message):
