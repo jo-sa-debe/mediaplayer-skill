@@ -65,7 +65,7 @@ class Mediaplayer(MycroftSkill):
         for track in self.vlc_all_tracks[0]:
             self.speak('track : ' + track )
             #self.audio_service.play(track, message )
-            self.audio_service.play('file:///03-mylo-muscle_cars.mp3', message )
+            self.audio_service.play('file:///03-mylo-muscle_cars.mp3')
         self.speak("end of tracklist : all")
         #self.audio_service.play(self.vlc_all_tracks, message )
 
