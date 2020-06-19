@@ -62,7 +62,7 @@ class Mediaplayer(MycroftSkill):
     def play(self, message):
         self.speak("Start Playing")
         for track in self.vlc_all_tracks:
-            self.speak('track : ' + track)
+            self.speak('track : ' + track.index(0))
         self.speak("end of tracklist : all")
         self.audio_service.play(self.vlc_all_tracks)
 
