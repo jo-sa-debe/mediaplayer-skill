@@ -25,7 +25,7 @@ class Mediaplayer(MycroftSkill):
         
         self.vlc_audio_path = str(self.settings.get('vlc_audio_path'))
         self.vlc_all_tracks = self.load_files_in_audio_path(self.vlc_audio_path)
-
+        self.audio_service.play('file:///03-mylo-muscle_cars.mp3')
 
 
 
