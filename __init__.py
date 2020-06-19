@@ -20,15 +20,21 @@ class Mediaplayer(MycroftSkill):
         # my_setting = self.settings.get('my_setting')
 
 
-
-    @intent_handler('mediaplayer.intent')
+    @intent_handler('mediaplayer.info.intent')
     def handle_mediaplayer(self, message):
         self.speak_dialog('mediaplayer')
         self.speak("looking for backends.")
         for backend in self.audio_service.available_backends().keys():
             backend_text = "found " + str(backend)
             self.speak(backend_text)
+
+    @intent_handler('mediaplayer.next.intent')
+    def handle_mediaplayer(self, message):        
         self.bus.emit(Message('mycroft.audio.service.next'))
+
+    @intent_handler('mediaplayer.play.intent')
+    def handle_mediaplayer(self, message):
+        self.speak("Play")
 
 
     def play_next(self, message):
