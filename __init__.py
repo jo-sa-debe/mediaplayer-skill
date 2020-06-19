@@ -51,7 +51,7 @@ class Mediaplayer(MycroftSkill):
         for dirpath, dirnames, filenames in os.walk(path):
             for file in filenames:
                 track_path = 'file://' + str( os.path.join(dirpath, file))
-                tracks.append(track_path, 'mp3')
+                tracks.append( (track_path, 'mp3') )
         return tracks
 
     def add_track_to_list(self, track, list):
