@@ -1,4 +1,4 @@
-from mycroft import MycroftSkill, intent_file_handler
+from mycroft import MycroftSkill, intent_file_handler, intent_handler
 from mycroft.messagebus import Message
 from mycroft.skills.audioservice import AudioService
 
@@ -17,9 +17,11 @@ class Mediaplayer(MycroftSkill):
         self.add_event('mycroft.audio.service.track_info', self.track_info)
         self.add_event('mycroft.audio.service.track_info_reply', self.track_info_reply)
         self.audio_service = AudioService(self.bus)
+        # my_setting = self.settings.get('my_setting')
 
 
-    @intent_file_handler('mediaplayer.info.intent')
+
+    @intent_handler('mediaplayer.intent')
     def handle_mediaplayer(self, message):
         self.speak_dialog('mediaplayer')
         self.speak("looking for backends.")
