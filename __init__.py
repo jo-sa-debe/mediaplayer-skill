@@ -22,7 +22,6 @@ class Mediaplayer(MycroftSkill):
         self.add_event('mycroft.audio.service.track_info_reply', self.track_info_reply)
         
         self.audio_service = AudioService(self.bus)
-        self.audio_service.play('file:///03-mylo-muscle_cars.mp3')
         
         #self.vlc_audio_path = str(self.settings.get('vlc_audio_path'))
         #self.vlc_all_tracks = self.load_files_in_audio_path(self.vlc_audio_path)
@@ -63,7 +62,7 @@ class Mediaplayer(MycroftSkill):
 
     def play(self, message):
         self.speak("Start Playing")
-        self.audio_service.play('file:///03-mylo-muscle_cars.mp3')
+        self.audio_service.play('file:///home/jsauwen/Musik/03-mylo-muscle_cars.mp3')
         #for track in self.vlc_all_tracks[0]:
         #    self.speak('track : ' + track )
             #self.audio_service.play(track, message )    
