@@ -19,7 +19,7 @@ class Mediaplayer(MycroftSkill):
         self.audio_service = AudioService(self.bus)
 
 
-    @intent_file_handler('mediaplayer.stop.intent')
+    @intent_file_handler('mediaplayer.info.intent')
     def handle_mediaplayer(self, message):
         self.speak_dialog('mediaplayer')
         self.speak("looking for backends.")
