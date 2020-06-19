@@ -22,7 +22,7 @@ class Mediaplayer(MycroftSkill):
         
         self.audio_service = AudioService(self.bus)
         
-        self.vlc_audio_path = self.settings.get('vlc_audio_path')
+        self.vlc_audio_path = str(self.settings.get('vlc_audio_path'))
         self.vlc_all_tracks = self.load_files_in_audio_path(self.vlc_audio_path)
 
 
