@@ -23,8 +23,8 @@ class Mediaplayer(MycroftSkill):
         
         self.audio_service = AudioService(self.bus)
         
-        #self.vlc_audio_path = str(self.settings.get('vlc_audio_path'))
-        #self.vlc_all_tracks = self.load_files_in_audio_path(self.vlc_audio_path)
+        self.vlc_audio_path = str(self.settings.get('vlc_audio_path'))
+        self.vlc_all_tracks = self.load_files_in_audio_path(self.vlc_audio_path)
        
 
 
@@ -51,6 +51,7 @@ class Mediaplayer(MycroftSkill):
         for dirpath, dirnames, filenames in os.walk(path):
             for file in filenames:
                 track_path = 'file://' + str( os.path.join(dirpath, file))
+                self.speak(track_path)
                 tracks.append( (track_path, 'mp3') )
         return tracks
 
@@ -62,11 +63,12 @@ class Mediaplayer(MycroftSkill):
 
     def play(self, message):
         self.speak("Start Playing")
-        self.audio_service.play('file:///home/jsauwen/Musik/01 Mars.mp3')
-        #for track in self.vlc_all_tracks[0]:
-        #    self.speak('track : ' + track )
+        #self.audio_service.play('file:///home/jsauwen/Musik/01 Mars.mp3')
+
+        for track in self.vlc_all_tracks[0]:
+            self.speak('track : ' + track )
             #self.audio_service.play(track, message )    
-        #self.speak("end of tracklist : all")
+        self.speak("end of tracklist : all")
         #self.audio_service.play(self.vlc_all_tracks, message )
 
     def play_next(self, message):
