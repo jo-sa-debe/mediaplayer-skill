@@ -52,7 +52,6 @@ class Mediaplayer(MycroftSkill):
         for dirpath, dirnames, filenames in os.walk(path):
             for file in filenames:
                 track_path = 'file://' + str( os.path.join(dirpath, file))
-                self.speak(track_path)
                 tracks.append( (track_path, 'mp3') )
         return tracks
 
@@ -68,7 +67,7 @@ class Mediaplayer(MycroftSkill):
 
         for track in self.vlc_all_tracks[0]:
             self.speak('track : ' + track )
-            #self.audio_service.play(track, message )    
+            self.audio_service.play(track, message )    
         self.speak("end of tracklist : all")
         #self.audio_service.play(self.vlc_all_tracks, message )
 
