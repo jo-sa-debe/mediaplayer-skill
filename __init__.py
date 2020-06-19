@@ -23,7 +23,7 @@ class Mediaplayer(MycroftSkill):
         
         self.audio_service = AudioService(self.bus)
         
-        self.vlc_audio_path = str(self.settings.get('vlc_audio_path'))
+        self.vlc_audio_path = os.path.abspath(str(self.settings.get('vlc_audio_path')))
         self.vlc_all_tracks = self.load_files_in_audio_path(self.vlc_audio_path)
        
 
@@ -48,6 +48,7 @@ class Mediaplayer(MycroftSkill):
     def load_files_in_audio_path(self, path):
         self.speak("looking for files in " + path)
         tracks = []
+        
         for dirpath, dirnames, filenames in os.walk(path):
             for file in filenames:
                 track_path = 'file://' + str( os.path.join(dirpath, file))
