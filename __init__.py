@@ -61,6 +61,7 @@ class Mediaplayer(MycroftSkill):
         pass
 
     def play(self, message):
+        self.speak(self.vlc_all_tracks)
         self.audio_service.play(self.vlc_all_tracks)
 
     def play_next(self, message):
