@@ -11,6 +11,7 @@ class Mediaplayer(MycroftSkill):
     def initialize(self): 
         super().initialize()
         self.playlists = []
+        self.vlc_all_tracks = []
 
         self.add_event('mycroft.audio.service.next', self.play_next)
         self.add_event('mycroft.audio.service.prev', self.play_prev)
@@ -63,7 +64,7 @@ class Mediaplayer(MycroftSkill):
         for track in self.vlc_all_tracks[0]:
             self.speak('track : ' + track )
         self.speak("end of tracklist : all")
-        self.audio_service.play(self.vlc_all_tracks, message )
+        #self.audio_service.play(self.vlc_all_tracks, message )
 
     def play_next(self, message):
         self.speak("this is the play next method")
