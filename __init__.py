@@ -42,7 +42,6 @@ class Mediaplayer(MycroftSkill):
 
     @intent_handler('mediaplayer.play.intent')
     def handle_mediaplayer_play(self, message):
-        self.speak("Start Playing")
         self.play(message)
 
     def load_files_in_audio_path(self, path):
@@ -51,7 +50,7 @@ class Mediaplayer(MycroftSkill):
         for dirpath, dirnames, filenames in os.walk(path):
             for file in filenames:
                 self.speak("adding track " + file)
-                tracks.append(file)
+                tracks.append(file, 'mp3')
         return tracks
 
     def add_track_to_list(self, track, list):
@@ -61,7 +60,7 @@ class Mediaplayer(MycroftSkill):
         pass
 
     def play(self, message):
-        self.speak(self.vlc_all_tracks)
+        self.speak("Start Playing")
         self.audio_service.play(self.vlc_all_tracks)
 
     def play_next(self, message):
