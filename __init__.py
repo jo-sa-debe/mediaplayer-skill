@@ -69,7 +69,7 @@ class Mediaplayer(MycroftSkill):
         for track in self.vlc_all_tracks:
             track_path = track[0]
             track_mime = track[1]
-            self.speak('track : ' + track_path )
+            #self.speak('track : ' + track_path )
             self.audio_service.play(track_path)    
         #self.audio_service.play(self.vlc_all_tracks, message )
 
