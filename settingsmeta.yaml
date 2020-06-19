@@ -1,14 +1,14 @@
 
 skillMetadata:
   sections:
-    - name: Options << Name of section
+    - name: VLC Settings
       fields:
-        - name: internal_python_variable_name
+        - name: vlc_audio_path
           type: text
-          label: Setting Friendly Display Name
-          value: ""
-          placeholder: demo prompt in the input box
-    - name: Login << Name of another section
+          label: path to audio files
+          value: "~/Musik"
+          placeholder: path to audio files for VLC
+    - name: Mopidy Settings
       fields:
         - type: label
           label: Just a little bit of extra info for the user to understand following settings

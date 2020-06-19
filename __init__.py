@@ -1,6 +1,7 @@
 from mycroft import MycroftSkill, intent_file_handler, intent_handler
 from mycroft.messagebus import Message
 from mycroft.skills.audioservice import AudioService
+import os
 
 
 class Mediaplayer(MycroftSkill):
@@ -9,6 +10,8 @@ class Mediaplayer(MycroftSkill):
 
     def initialize(self): 
         super().initialize()
+        self.playlists = []
+
         self.add_event('mycroft.audio.service.next', self.play_next)
         self.add_event('mycroft.audio.service.prev', self.play_prev)
         self.add_event('mycroft.audio.service.resume', self.play_resume)
@@ -16,8 +19,13 @@ class Mediaplayer(MycroftSkill):
         self.add_event('mycroft.audio.service.stop', self.play_stop)
         self.add_event('mycroft.audio.service.track_info', self.track_info)
         self.add_event('mycroft.audio.service.track_info_reply', self.track_info_reply)
+        
         self.audio_service = AudioService(self.bus)
-        # my_setting = self.settings.get('my_setting')
+        
+        vlc_audio_path = self.settings.get('vlc_audio_path')
+        vlc_all_tracks = load_files_in_audio_path(vlc_audio_path)
+
+
 
 
     @intent_handler('mediaplayer.info.intent')
@@ -36,6 +44,20 @@ class Mediaplayer(MycroftSkill):
     def handle_mediaplayer_play(self, message):
         self.speak("Play")
 
+    def load_files_in_audio_path(path):
+        self.speak("looking for files in " + path)
+        tracks = []
+        for root, dirs, files in os.walk(path)
+            for file in files
+                self.speak("adding track " + file)
+                tracks.append(file)
+        return tracks
+
+    def add_track_to_list(track, list):
+        pass
+
+    def add_tracks_to_list(tracks, list):
+        pass
 
     def play_next(self, message):
         self.speak("this is the play next method")
@@ -44,28 +66,28 @@ class Mediaplayer(MycroftSkill):
     def play_prev(self, message):
         pass
 
-    def play_random(self):
+    def play_random(self, message):
         pass
 
-    def play_resume(self):
+    def play_resume(self, message):
         pass
 
-    def play_stop(self):
+    def play_stop(self, message):
         pass
 
-    def play_pause(self):
+    def play_pause(self, message):
         pass
 
-    def track_info(self):
+    def track_info(self, message):
         pass
     
-    def track_info_reply(self):
+    def track_info_reply(self, message):
         pass
 
-    def queue_track(self):
+    def queue_track(self, message):
         pass
 
-    def is_playing(self):
+    def is_playing(self, message):
         pass
 
 
