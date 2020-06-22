@@ -66,12 +66,12 @@ class Mediaplayer(MycroftSkill):
         self.speak("Start Playing")
         #self.audio_service.play('file:///home/jsauwen/Musik/01 Mars.mp3')
 
-        for track in self.vlc_all_tracks:
-            track_path = track[0]
-            track_mime = track[1]
-            #self.speak('track : ' + track_path )
-            self.audio_service.play(track_path)    
-        #self.audio_service.play(self.vlc_all_tracks, message )
+        #for track in self.vlc_all_tracks:
+        #    track_path = track[0]
+        #    track_mime = track[1]
+        #    #self.speak('track : ' + track_path )
+        #    self.audio_service.play(track_path)    
+        self.audio_service.play(self.vlc_all_tracks )
 
     def play_next(self, message):
         self.speak("this is the play next method")
