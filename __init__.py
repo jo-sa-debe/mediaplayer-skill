@@ -92,13 +92,13 @@ class Mediaplayer(MycroftSkill):
 
     def play_next(self, message):
         self.speak("jumping to next track")
-        #self.bus.emit(Message('mycroft.audio.service.next'))
-        self.audio_service.next()
+        self.bus.emit(Message('mycroft.audio.service.next'))
+        #self.audio_service.next()
 
     def play_prev(self, message):
         self.speak("jumping to psrevious track")
-        self.audio_service.prev()
-        #self.bus.emit(Message('mycroft.audio.service.prev'))
+        #self.audio_service.prev()
+        self.bus.emit(Message('mycroft.audio.service.prev'))
         
 
     def play_random(self, message):
@@ -109,14 +109,14 @@ class Mediaplayer(MycroftSkill):
 
     def play_stop(self, message):
         self.speak("stopping playback")
-        self.audio_service.stop()
-        #self.bus.emit(Message('mycroft.audio.service.stop'))
+        #self.audio_service.stop()
+        self.bus.emit(Message('mycroft.audio.service.stop'))
     
 
     def play_pause(self, message):
         self.speak("pausing playback")
-        self.audio_service.pause()
-        #self.bus.emit(Message('mycroft.audio.service.pause'))
+        #self.audio_service.pause()
+        self.bus.emit(Message('mycroft.audio.service.pause'))
 
 
     def track_info(self, message):
