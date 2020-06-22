@@ -38,20 +38,23 @@ class Mediaplayer(MycroftSkill):
             self.speak(backend_text)
 
     @intent_handler('mediaplayer.next.intent')
-    def handle_mediaplayer_next(self, message):        
-        self.bus.emit(Message('mycroft.audio.service.next'))
+    def handle_mediaplayer_next(self, message): 
+        self.play_next(message)       
+        
 
     @intent_handler('mediaplayer.prev.intent')
-    def handle_mediaplayer_prev(self, message):        
-        self.bus.emit(Message('mycroft.audio.service.prev'))
-
+    def handle_mediaplayer_prev(self, message):   
+        self.play_prev(message)     
+        
     @intent_handler('mediaplayer.stop.intent')
-    def handle_mediaplayer_stop(self, message):        
-        self.bus.emit(Message('mycroft.audio.service.stop'))
+    def handle_mediaplayer_stop(self, message):  
+        self.play_stop(message)      
+        
 
     @intent_handler('mediaplayer.pause.intent')
-    def handle_mediaplayer_pause(self, message):        
-        self.bus.emit(Message('mycroft.audio.service.pause'))
+    def handle_mediaplayer_pause(self, message):    
+        self.play_pause(message)
+        
 
     @intent_handler('mediaplayer.play.intent')
     def handle_mediaplayer_play(self, message):
@@ -88,11 +91,14 @@ class Mediaplayer(MycroftSkill):
         self.audio_service.play(self.vlc_all_tracks )
 
     def play_next(self, message):
+        self.speak("jumping to next track")
+        #self.bus.emit(Message('mycroft.audio.service.next'))
         self.audio_service.next()
-        #self.speak("this is the play next method")
 
     def play_prev(self, message):
+        self.speak("jumping to psrevious track")
         self.audio_service.prev()
+        #self.bus.emit(Message('mycroft.audio.service.prev'))
         
 
     def play_random(self, message):
@@ -102,11 +108,15 @@ class Mediaplayer(MycroftSkill):
         pass
 
     def play_stop(self, message):
+        self.speak("stopping playback")
         self.audio_service.stop()
+        #self.bus.emit(Message('mycroft.audio.service.stop'))
     
 
     def play_pause(self, message):
+        self.speak("pausing playback")
         self.audio_service.pause()
+        #self.bus.emit(Message('mycroft.audio.service.pause'))
 
 
     def track_info(self, message):
