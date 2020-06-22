@@ -41,6 +41,18 @@ class Mediaplayer(MycroftSkill):
     def handle_mediaplayer_next(self, message):        
         self.bus.emit(Message('mycroft.audio.service.next'))
 
+    @intent_handler('mediaplayer.prev.intent')
+    def handle_mediaplayer_prev(self, message):        
+        self.bus.emit(Message('mycroft.audio.service.prev'))
+
+    @intent_handler('mediaplayer.stop.intent')
+    def handle_mediaplayer_stop(self, message):        
+        self.bus.emit(Message('mycroft.audio.service.stop'))
+
+    @intent_handler('mediaplayer.pause.intent')
+    def handle_mediaplayer_pause(self, message):        
+        self.bus.emit(Message('mycroft.audio.service.pause'))
+
     @intent_handler('mediaplayer.play.intent')
     def handle_mediaplayer_play(self, message):
         self.play(message)
@@ -74,11 +86,12 @@ class Mediaplayer(MycroftSkill):
         self.audio_service.play(self.vlc_all_tracks )
 
     def play_next(self, message):
-        self.speak("this is the play next method")
-        pass
+        self.audio_service.next()
+        #self.speak("this is the play next method")
 
     def play_prev(self, message):
-        pass
+        self.audio_service.prev()
+        
 
     def play_random(self, message):
         pass
@@ -87,10 +100,12 @@ class Mediaplayer(MycroftSkill):
         pass
 
     def play_stop(self, message):
-        pass
+        self.audio_service.stop()
+    
 
     def play_pause(self, message):
-        pass
+        self.audio_service.pause()
+
 
     def track_info(self, message):
         pass
