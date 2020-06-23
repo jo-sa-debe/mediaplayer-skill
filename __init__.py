@@ -69,7 +69,6 @@ class Mediaplayer(MycroftSkill):
                 track_path = 'file://' + str( os.path.join(dirpath, file))
                 track_data = (track_path , 'mp3')
                 tracks.append(track_data)
-                self.speak("added " + str(file))
         return tracks
 
     def add_track_to_list(self, track, list):
@@ -96,6 +95,7 @@ class Mediaplayer(MycroftSkill):
         self.speak("jumping to next track")
         #self.bus.emit(Message('mycroft.audio.service.next'))
         #self.audio_service.next()
+        self.audio_service.next()
 
     def play_prev(self, message):
         self.speak("jumping to previous track")
