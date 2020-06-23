@@ -81,7 +81,7 @@ class Mediaplayer(MycroftSkill):
         self.speak("Start Playing")
         #self.audio_service.play('file:///home/jsauwen/Musik/01 Mars.mp3')
 
-        number_of_tracks = self.vlc_all_tracks.count()
+        number_of_tracks = len(self.vlc_all_tracks)
         self.speak("Number of records found" + str(number_of_tracks))
         #for track in self.vlc_all_tracks:
         #    track_path = track[0]
