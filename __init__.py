@@ -87,15 +87,17 @@ class Mediaplayer(MycroftSkill):
         #    track_path = track[0]
         #    track_mime = track[1]
         #    #self.speak('track : ' + track_path )
-        #    self.audio_service.play(track_path)    
+        #self.audio_service.play(track_path)    
         
-        #self.audio_service.play(self.vlc_all_tracks )
+        self.audio_service.play(self.vlc_all_tracks )
 
     def play_next(self, message):
         self.speak("jumping to next track")
         #self.bus.emit(Message('mycroft.audio.service.next'))
         #self.audio_service.next()
-        self.audio_service.next()
+        if self.audio_service.is_playing:
+            self.audio_service.next()
+        return False
 
     def play_prev(self, message):
         self.speak("jumping to previous track")
