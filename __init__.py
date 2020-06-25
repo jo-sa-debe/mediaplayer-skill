@@ -75,8 +75,8 @@ class Mediaplayer(MycroftSkill):
                 track_data = (track_uri , 'mp3')
                 tracks.append(track_data)
 
-        number_of_tracks = len(self.vlc_all_tracks)
-        self.speak("Number of records found " + str(number_of_tracks))
+        number_of_tracks = len(tracks)
+        self.speak("Number of records found " + str(tracks))
 
         return tracks
 
