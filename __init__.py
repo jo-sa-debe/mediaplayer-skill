@@ -2,6 +2,7 @@ from mycroft import MycroftSkill, intent_file_handler, intent_handler
 from mycroft.messagebus import Message
 from mycroft.skills.audioservice import AudioService
 import os
+from pathlib import Path
 
 
 class Mediaplayer(MycroftSkill):
@@ -23,7 +24,8 @@ class Mediaplayer(MycroftSkill):
         
         self.audio_service = AudioService(self.bus)
         
-        self.vlc_audio_path = os.path.abspath(str(self.settings.get('vlc_audio_path')))
+        
+        self.vlc_audio_path = Path(os.path.abspath(str(self.settings.get('vlc_audio_path'))))
         self.vlc_all_tracks = self.load_files_in_audio_path(self.vlc_audio_path)
        
 
@@ -66,7 +68,8 @@ class Mediaplayer(MycroftSkill):
         
         for dirpath, dirnames, filenames in os.walk(path):
             for file in filenames:
-                track_path = 'file://' + str( os.path.join(dirpath, file))
+                track_path = dirpath / file
+                #track_path = "file://" + str( os.path.join(dirpath, file))
                 track_data = (track_path , 'mp3')
                 tracks.append(track_data)
         return tracks
