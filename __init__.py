@@ -89,7 +89,7 @@ class Mediaplayer(MycroftSkill):
         #    #self.speak('track : ' + track_path )
         #self.audio_service.play(track_path)    
         self.speak("Start with track: " + str(self.vlc_all_tracks[0]) )
-        self.audio_service.play(self.vlc_all_tracks )
+        self.audio_service.play(self.vlc_all_tracks[0] )
 
     def play_next(self, message):
         self.speak("jumping to next track")
