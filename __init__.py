@@ -63,7 +63,7 @@ class Mediaplayer(MycroftSkill):
         self.play(message)
 
     def load_files_in_audio_path(self, path):
-        self.speak("looking for files in " + path)
+        self.speak("looking for files in " + str(path))
         tracks = []
         
         for dirpath, dirnames, filenames in os.walk(path):
