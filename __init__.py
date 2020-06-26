@@ -28,6 +28,9 @@ class Mediaplayer(MycroftSkill):
         #self.vlc_audio_path = Path(os.path.abspath(str(self.settings.get('vlc_audio_path'))))
         self.vlc_audio_path = Path(str(self.settings.get('vlc_audio_path')))
         self.vlc_all_tracks = self.load_files_in_audio_path(self.vlc_audio_path.resolve())
+
+        self.current_track = []
+        self.other_track_requested = False
        
 
 
@@ -89,17 +92,22 @@ class Mediaplayer(MycroftSkill):
     def play(self, message):
         self.speak("Start Playing")
         self.speak(str(self.vlc_all_tracks[0]))
-        self.audio_service.play('file:///home/jsauwen/Musik/01 Mars.mp3')
+        #self.audio_service.play('file:///home/jsauwen/Musik/01 Mars.mp3')
 
-        #self.audio_service.play(self.vlc_all_tracks[0] )
+        self.audio_service.play(self.vlc_all_tracks[0] )
 
     def play_next(self, message):
         self.speak("jumping to next track")
-        #self.bus.emit(Message('mycroft.audio.service.next'))
-        #self.audio_service.next()
-        if self.audio_service.is_playing:
-            self.audio_service.next()
-        return False
+
+        if self.audio_service.is_playing() :
+            old_track = self.current_track
+            cur_track = self.track_info(message)
+            if not self.other_track_requested:
+                self.audio_service.next()
+                self.other_track_requested = True
+            elif old_track != cur_track:
+                self.other_track_requested = False 
+        
 
     def play_prev(self, message):
         self.speak("jumping to previous track")
@@ -131,9 +139,11 @@ class Mediaplayer(MycroftSkill):
 
 
     def track_info(self, message):
-        pass
+        return self.audio_service.track_info()
+        
     
     def track_info_reply(self, message):
+        
         pass
 
     def queue_track(self, message):
