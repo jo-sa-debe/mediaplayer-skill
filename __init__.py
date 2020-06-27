@@ -22,19 +22,13 @@ class Mediaplayer(MycroftSkill):
         self.add_event('mycroft.audio.service.track_info', self.track_info)
         self.add_event('mycroft.audio.service.track_info_reply', self.track_info_reply)
         
-        self.audio_service = AudioService(self.bus)
-        
-        
-        #self.vlc_audio_path = Path(os.path.abspath(str(self.settings.get('vlc_audio_path'))))
-        
+        self.audio_service = AudioService(self.bus) 
         self.vlc_audio_path = Path(str(self.settings.get('vlc_audio_path')))
-        self.vlc_all_tracks = self.load_files_in_audio_path(self.vlc_audio_path.resolve())
 
         self.current_track = []
+        self.current_track_no = -1
         self.other_track_requested = False
        
-
-
 
     @intent_handler('mediaplayer.info.intent')
     def handle_mediaplayer_info(self, message):
@@ -76,15 +70,18 @@ class Mediaplayer(MycroftSkill):
                 track_path = Path(dirpath)
                 track_path = track_path / file
                 track_uri = 'file://' + str(track_path.resolve())
-                #track_uri = str(track_path.as_posix())
-                #track_path = "file://" + str( os.path.join(dirpath, file))
                 track_data = (track_uri , 'mp3')
                 tracks.append(track_data)
-                # some comment
 
         self.speak("Number of records found " + str(len(tracks)))
 
         return tracks
+
+    def init_vlc_audio_list(self):
+        self.vlc_all_tracks = self.load_files_in_audio_path(self.vlc_audio_path)
+        self.current_track = []
+        self.current_track_no = 0
+
 
     def add_track_to_list(self, track, list):
         pass
@@ -93,11 +90,20 @@ class Mediaplayer(MycroftSkill):
         pass
 
     def play(self, message):
-        self.speak("Start Playing")
-        self.speak(str(self.vlc_all_tracks[0]))
-        #self.audio_service.play('file:///home/jsauwen/Musik/01 Mars.mp3')
+        if not self.audio_service.is_playing:
+            if not self.vlc_all_tracks:
+                self.init_vlc_audio_list()
+                
+            self.speak("Start Playing")
+            self.audio_service.play(self.vlc_all_tracks[self.current_track_no][0])
+            if self.audio_service.is_playing():
+                playing_track = self.audio_service.track_info()
+                if playing_track != self.current_track:
+                    self.current_track = playing_track
+        else:
+            self.speak("Already playing")
+        
 
-        self.audio_service.play(self.vlc_all_tracks[0][0])
 
     def play_next(self, message):
         self.speak("jumping to next track")
