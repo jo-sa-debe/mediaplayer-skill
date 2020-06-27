@@ -106,9 +106,9 @@ class Mediaplayer(MycroftSkill):
 
 
     def play_next(self, message):
-        self.speak("jumping to next track")
-
-        if self.audio_service.is_playing :
+        if self.audio_service.is_playing:
+            self.speak("jumping to next track")
+            self.audio_service.next()
             old_track = self.current_track
             cur_track = self.track_info(message)
             if not self.other_track_requested:
