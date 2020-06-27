@@ -159,15 +159,16 @@ class Mediaplayer(MycroftSkill):
 
 
     def track_info(self, message):
-        self.speak("event: track_info")
+        #self.speak("event: track_info")
+
         return self.audio_service.track_info()
         
     
     def track_info_reply(self, message):
-        self.speak("event: track_info_reply")
+        #self.speak("event: track_info_reply")
         if self.audio_service.is_playing:
             self.speak("now playing : " + str(message))
-        pass
+        return self.track_info_reply()
 
     def queue_track(self, message):
         self.speak("event: queue_track")
