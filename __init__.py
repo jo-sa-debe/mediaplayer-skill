@@ -97,7 +97,7 @@ class Mediaplayer(MycroftSkill):
         self.speak(str(self.vlc_all_tracks[0]))
         #self.audio_service.play('file:///home/jsauwen/Musik/01 Mars.mp3')
 
-        self.audio_service.play(self.vlc_all_tracks )
+        self.audio_service.play(self.vlc_all_tracks[0] )
 
     def play_next(self, message):
         self.speak("jumping to next track")
