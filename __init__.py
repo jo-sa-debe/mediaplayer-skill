@@ -62,7 +62,7 @@ class Mediaplayer(MycroftSkill):
         self.play(message)
 
     def load_files_in_audio_path(self, path):
-        self.speak("looking for files in " + str(path))
+        self.speak("Load files from " + str(path))
         tracks = []
         
         for dirpath, dirnames, filenames in os.walk(path):
@@ -90,6 +90,7 @@ class Mediaplayer(MycroftSkill):
         pass
 
     def play(self, message):
+        self.speak("event: play")
         self.speak(str(message))
         if not self.audio_service.is_playing:
             if not self.vlc_all_tracks:
@@ -107,6 +108,7 @@ class Mediaplayer(MycroftSkill):
 
 
     def play_next(self, message):
+        self.speak("event: next")
         self.speak(str(message))
         if self.audio_service.is_playing:
             self.speak("jumping to next track")
@@ -123,18 +125,22 @@ class Mediaplayer(MycroftSkill):
         
 
     def play_prev(self, message):
+        self.speak("event: previous")
         self.speak("jumping to previous track")
         #self.audio_service.prev()
         #self.bus.emit(Message('mycroft.audio.service.prev'))
         
 
     def play_random(self, message):
+        self.speak("event: random")
         pass
 
     def play_resume(self, message):
+        self.speak("event: resume")
         pass
 
     def play_stop(self, message):
+        self.speak("event: stop")
         if self.audio_service.is_playing:
             self.audio_service.stop()
             self.speak("stopping playback")
@@ -146,24 +152,29 @@ class Mediaplayer(MycroftSkill):
     
 
     def play_pause(self, message):
+        self.speak("event: pause")
         self.speak("pausing playback")
         #self.audio_service.pause()
         #self.bus.emit(Message('mycroft.audio.service.pause'))
 
 
     def track_info(self, message):
+        self.speak("event: track_info")
         return self.audio_service.track_info()
         
     
     def track_info_reply(self, message):
+        self.speak("event: track_info_reply")
         if self.audio_service.is_playing:
             self.speak("now playing : " + str(message))
         pass
 
     def queue_track(self, message):
+        self.speak("event: queue_track")
         pass
 
     def is_playing(self, message):
+        self.speak("event: is playing")
         pass
 
 
