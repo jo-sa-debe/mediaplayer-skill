@@ -185,14 +185,14 @@ class Mediaplayer(CommonPlaySkill):
     def CPS_match_query_phrase(self, phrase):
         self.speak("phrase : " + str(phrase))
         self.play()
-        pass
+        level = CPSMatchLevel.EXACT
+        return phrase, level, data
 
     def CPS_start(self, phrase, data):
         self.speak("phrase : " + str(phrase))
         self.speak("data : " + str(data))
-        
-        level = CPSMatchLevel.EXACT
-        return phrase, level, data
+        pass
+
 
     def CPS_send_status(self, artist='', track='', image=''):
         data = {'skill': self.name,
