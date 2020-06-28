@@ -2,6 +2,7 @@ from mycroft import MycroftSkill, intent_file_handler, intent_handler
 from mycroft.messagebus import Message
 from mycroft.skills.audioservice import AudioService
 from mycroft.skills.common_play_skill import CommonPlaySkill, CPSMatchLevel
+from mycroft.audio.services import vlc
 import random
 import os
 from pathlib import Path
@@ -90,8 +91,15 @@ class Mediaplayer(CommonPlaySkill):
 
     def init_vlc_audio_list(self):
         self.vlc_all_tracks = self.load_files_in_audio_path(self.vlc_audio_path)
-        self.audio_service.queue(self.vlc_all_tracks)
+        self.queue_tracks(self.vlc_all_tracks)    
         self.current_track = []
+
+    def get_vlc_track_info(self):
+        pass
+        
+
+    def queue_tracks(self, tracks):
+        self.audio_service.queue(tracks)
 
 
     def add_track_to_list(self, track, list):
@@ -180,7 +188,8 @@ class Mediaplayer(CommonPlaySkill):
     def CPS_start(self, phrase, data):
         self.speak("phrase : " + str(phrase))
         self.speak("data : " + str(data))
-        pass
+        level = CPSMatchLevel.EXACT
+        return phrase, level, data
 
     def CPS_send_status(self, artist='', track='', image=''):
         data = {'skill': self.name,
