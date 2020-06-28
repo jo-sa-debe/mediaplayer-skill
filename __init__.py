@@ -99,6 +99,7 @@ class Mediaplayer(MycroftSkill):
             self.audio_service.play(self.vlc_all_tracks, 'vlc')
         else:
             self.speak("Already playing")
+        pass
         
 
 
@@ -116,6 +117,7 @@ class Mediaplayer(MycroftSkill):
                 self.other_track_requested = True
             elif old_track != cur_track:
                 self.other_track_requested = False 
+        pass
         
 
     def play_prev(self, message):
@@ -123,6 +125,7 @@ class Mediaplayer(MycroftSkill):
         self.speak("jumping to previous track")
         #self.audio_service.prev()
         #self.bus.emit(Message('mycroft.audio.service.prev'))
+        pass
         
 
     def play_random(self, message):
@@ -143,6 +146,7 @@ class Mediaplayer(MycroftSkill):
         
         #self.audio_service.stop()
         #self.bus.emit(Message('mycroft.audio.service.stop'))
+        pass
     
 
     def play_pause(self, message):
@@ -150,6 +154,7 @@ class Mediaplayer(MycroftSkill):
         self.speak("pausing playback")
         #self.audio_service.pause()
         #self.bus.emit(Message('mycroft.audio.service.pause'))
+        pass
 
 
     def track_info(self, message):
