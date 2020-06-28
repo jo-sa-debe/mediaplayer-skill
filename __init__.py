@@ -180,6 +180,8 @@ class Mediaplayer(CommonPlaySkill):
         pass
 
     def CPS_start(self, phrase, data):
+        self.speak("phrase : " + str(phrase))
+        self.speak("data : " + str(data))
         pass
 
     def CPS_send_status(self, artist='', track='', image=''):
