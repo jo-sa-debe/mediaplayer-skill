@@ -88,14 +88,13 @@ class Mediaplayer(MycroftSkill):
         pass
 
     def play(self, message):
-        self.speak("event: play")
         if not self.vlc_all_tracks:
             self.init_vlc_audio_list()
 
         if not self.is_playing:    
             self.audio_service.play(self.vlc_all_tracks, 'vlc')
             self.is_playing = True
-            self.current_track = self.audio_service.track_info()
+            #self.current_track = self.audio_service.track_info()
         else:
             self.speak("Already playing")
 
