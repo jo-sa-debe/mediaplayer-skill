@@ -185,7 +185,7 @@ class Mediaplayer(CommonPlaySkill):
     def CPS_match_query_phrase(self, phrase):
         self.speak("phrase : " + str(phrase))
         self.play()
-        level = CPSMatchLevel.EXACT
+        level = CPSMatchLevel.MULTI_KEY
         track = self.current_track
         return phrase, level, track
 
