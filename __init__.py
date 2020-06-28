@@ -25,7 +25,6 @@ class Mediaplayer(MycroftSkill):
         self.audio_service = AudioService(self.bus) 
         self.vlc_audio_path = Path(str(self.settings.get('vlc_audio_path')))
         self.current_track = []
-        self.current_track_no = -1
         self.other_track_requested = False
         self.is_playing = False
        
@@ -80,7 +79,6 @@ class Mediaplayer(MycroftSkill):
     def init_vlc_audio_list(self):
         self.vlc_all_tracks = self.load_files_in_audio_path(self.vlc_audio_path)
         self.current_track = []
-        self.current_track_no = 0
 
 
     def add_track_to_list(self, track, list):
@@ -97,16 +95,17 @@ class Mediaplayer(MycroftSkill):
         if not self.is_playing:    
             self.audio_service.play(self.vlc_all_tracks, 'vlc')
             self.is_playing = True
+            self.current_track = self.audio_service.track_info()
         else:
             self.speak("Already playing")
-
-
 
     def play_next(self, message):
         self.speak("event: next")
         if self.is_playing:
-            self.speak("jumping to next track")
-            self.audio_service.next()
+            self.speak(" is playing, so try next")
+            if self.current_track == self.audio_service.track_info:
+                self.speak(" current track still playing, so request next")
+                self.audio_service.next()
         pass
         
 
@@ -119,51 +118,34 @@ class Mediaplayer(MycroftSkill):
         
 
     def play_random(self, message):
-        self.speak("event: random")
         pass
 
     def play_resume(self, message):
-        self.speak("event: resume")
+        if not self.is_playing:
+            self.audio_service.resume()
+            self.is_playing = True
         pass
 
     def play_stop(self, message):
-        self.speak("event: stop")
         if self.is_playing:
             self.audio_service.stop()
             self.is_playing = False
-            
-
-        # if self.audio_service.is_playing:
-        #     self.audio_service.stop()
-        #     self.speak("stopping playback")
-        # else:
-        #     self.speak("nothing playing")
-        
-        # self.bus.emit(Message('mycroft.audio.service.stop'))
-        
-        #self.audio_service.stop()
-        
         pass
-    
 
     def play_pause(self, message):
-        self.speak("event: pause")
-        self.speak("pausing playback")
-        #self.audio_service.pause()
-        #self.bus.emit(Message('mycroft.audio.service.pause'))
+        if self.is_playing:
+            self.audio_service.pause()
+            self.is_playing = False
         pass
 
 
     def track_info(self, message):
         #self.speak("event: track_info")
-
         return self.audio_service.track_info()
         
     
     def track_info_reply(self, message):
         #self.speak("event: track_info_reply")
-        if self.audio_service.is_playing:
-            self.speak("now playing : " + str(message))
         return self.audio_service.track_info()
 
     def queue_track(self, message):
