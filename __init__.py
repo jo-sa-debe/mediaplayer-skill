@@ -24,10 +24,10 @@ class Mediaplayer(MycroftSkill):
         
         self.audio_service = AudioService(self.bus) 
         self.vlc_audio_path = Path(str(self.settings.get('vlc_audio_path')))
-
         self.current_track = []
         self.current_track_no = -1
         self.other_track_requested = False
+        self.is_playing = False
        
 
     @intent_handler('mediaplayer.info.intent')
@@ -93,7 +93,7 @@ class Mediaplayer(MycroftSkill):
         self.speak("event: play")
         self.init_vlc_audio_list()
         self.audio_service.play(self.vlc_all_tracks, 'vlc')
-        self.audio_service.is_playing = True
+        self.is_playing = True
         # if not self.audio_service.is_playing:
         #     if not self.vlc_all_tracks:
         #        
@@ -141,10 +141,9 @@ class Mediaplayer(MycroftSkill):
 
     def play_stop(self, message):
         self.speak("event: stop")
-        if self.audio_service.is_playing:
-            self.speak("is playing: will stop")
-            self.audio_service.is_playing = False
+        if self.is_playing:
             self.audio_service.stop()
+            self.is_playing = False
             
 
         # if self.audio_service.is_playing:
@@ -182,10 +181,6 @@ class Mediaplayer(MycroftSkill):
 
     def queue_track(self, message):
         self.speak("event: queue_track")
-        pass
-
-    def is_playing(self, message):
-        self.speak("event: is playing")
         pass
 
 
