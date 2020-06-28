@@ -140,7 +140,7 @@ class Mediaplayer(MycroftSkill):
 
     def play_stop(self, message):
         self.speak("event: stop")
-        self.stop()
+        self.audio_service.stop()
         # if self.audio_service.is_playing:
         #     self.audio_service.stop()
         #     self.speak("stopping playback")
