@@ -93,6 +93,7 @@ class Mediaplayer(MycroftSkill):
         self.speak("event: play")
         self.init_vlc_audio_list()
         self.audio_service.play(self.vlc_all_tracks, 'vlc')
+        self.audio_service.is_playing = True
         # if not self.audio_service.is_playing:
         #     if not self.vlc_all_tracks:
         #        
@@ -140,7 +141,9 @@ class Mediaplayer(MycroftSkill):
 
     def play_stop(self, message):
         self.speak("event: stop")
-        self.audio_service.stop()
+        if self.audio_service.is_playing:
+            self.audio_service.stop()
+
         # if self.audio_service.is_playing:
         #     self.audio_service.stop()
         #     self.speak("stopping playback")
