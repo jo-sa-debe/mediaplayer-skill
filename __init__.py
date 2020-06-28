@@ -186,7 +186,8 @@ class Mediaplayer(CommonPlaySkill):
         self.speak("phrase : " + str(phrase))
         self.play()
         level = CPSMatchLevel.EXACT
-        return phrase, level
+        track = self.current_track
+        return phrase, level, track
 
     def CPS_start(self, phrase, data):
         self.speak("phrase : " + str(phrase))
