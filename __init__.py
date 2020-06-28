@@ -114,6 +114,7 @@ class Mediaplayer(MycroftSkill):
 
     def play_next(self, message):
         if self.is_playing:
+            self.speak(" trying next")
             self.audio_service.next()
         pass
         
