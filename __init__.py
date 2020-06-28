@@ -174,6 +174,7 @@ class Mediaplayer(CommonPlaySkill):
         self.track_change_request_in_progress = False
 
     def CPS_match_query_phrase(self, phrase):
+        self.speak("phrase : " + str(phrase))
         pass
 
     def CPS_start(self, phrase, data):
