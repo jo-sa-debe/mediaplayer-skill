@@ -19,13 +19,11 @@ class Mediaplayer(MycroftSkill):
         self.add_event('mycroft.audio.service.resume', self.play_resume)
         self.add_event('mycroft.audio.service.pause', self.play_pause)
         self.add_event('mycroft.audio.service.stop', self.play_stop)
-        #self.add_event('mycroft.audio.service.track_info', self.track_info)
-        #self.add_event('mycroft.audio.service.track_info_reply', self.track_info_reply)
         
         self.audio_service = AudioService(self.bus) 
         self.vlc_audio_path = Path(str(self.settings.get('vlc_audio_path')))
         self.current_track = []
-        self.other_track_requested = False
+        self.track_change_request_in_progress = False
         self.is_playing = False
        
 
@@ -40,7 +38,8 @@ class Mediaplayer(MycroftSkill):
     @intent_handler('mediaplayer.next.intent')
     def handle_mediaplayer_next(self, message): 
         if self.is_playing:
-            self.play_next(message)  
+            if not self.is_track_change_request_in_progress():
+                self.play_next(message)  
         else:
             self.speak("Nothing playing")     
         
@@ -109,14 +108,14 @@ class Mediaplayer(MycroftSkill):
     
             self.audio_service.play(self.vlc_all_tracks, 'vlc')
             self.is_playing = True
-            self.current_track = self.audio_service.track_info()
+            self.set_init_track()
 
 
     def play_next(self, message):
-        self.speak(str(self.audio_service.track_info()))
         if self.is_playing:
-            self.speak(" trying next")
-            #self.audio_service.next()
+            if not self.is_track_change_request_in_progress():
+                self.start_track_change_request()
+                self.audio_service.next()
         pass
         
 
@@ -158,6 +157,22 @@ class Mediaplayer(MycroftSkill):
         self.speak("event: queue_track")
         pass
 
+    def set_init_track(self):
+        self.current_track = self.audio_service.track_info()
+
+    def is_track_change_request_in_progress(self):
+        if self.track_change_request_in_progress == True:
+            if self.current_track != self.audio_service.track_info():
+                self.complete_track_change_request()
+
+        return self.track_change_request_in_progress 
+
+    def start_track_change_request(self):
+        self.track_change_request_in_progress = True
+
+    def complete_track_change_request(self):   
+        self.current_track = self.audio_service.track_info()
+        self.track_change_request_in_progress = False
 
 
 
