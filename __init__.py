@@ -108,7 +108,8 @@ class Mediaplayer(CommonPlaySkill):
     def add_tracks_to_list(self, tracks, list):
         pass
 
-    def play(self, message):
+    #def play(self, message):
+    def play(self):
         if not self.is_playing:
             if not self.vlc_all_tracks:
                 self.init_vlc_audio_list()
@@ -188,6 +189,7 @@ class Mediaplayer(CommonPlaySkill):
     def CPS_start(self, phrase, data):
         self.speak("phrase : " + str(phrase))
         self.speak("data : " + str(data))
+        self.play()
         level = CPSMatchLevel.EXACT
         return phrase, level, data
 
