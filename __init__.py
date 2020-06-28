@@ -69,15 +69,14 @@ class Mediaplayer(CommonPlaySkill):
             self.speak("Nothing playing")
         
 
-    @intent_handler('mediaplayer.play.intent')
-    def handle_mediaplayer_play(self, message):
-        if not self.is_playing:
-            self.play(message)
-        else:
-            self.speak("Already playing")
+    # @intent_handler('mediaplayer.play.intent')
+    # def handle_mediaplayer_play(self, message):
+    #     if not self.is_playing:
+    #         self.play(message)
+    #     else:
+    #         self.speak("Already playing")
 
     def load_files_in_audio_path(self, path):
-        self.speak("Load files from " + str(path))
         tracks = []
         
         for dirpath, dirnames, filenames in os.walk(path):
@@ -87,9 +86,6 @@ class Mediaplayer(CommonPlaySkill):
                 track_uri = 'file://' + str(track_path.resolve())
                 track_data = (track_uri , 'mp3')
                 tracks.append(track_data)
-
-        self.speak("Number of records found " + str(len(tracks)))
-
         return tracks
 
     def init_vlc_audio_list(self):
