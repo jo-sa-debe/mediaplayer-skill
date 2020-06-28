@@ -97,7 +97,7 @@ class Mediaplayer(MycroftSkill):
                 self.init_vlc_audio_list()
                 
             self.speak("Start Playing")
-            self.audio_service.play(self.vlc_all_tracks[self.current_track_no][0])
+            self.audio_service.play(self.vlc_all_tracks)
             playing_track = self.audio_service.track_info()
             self.speak("now playing: " + str(playing_track))                
             if playing_track != self.current_track:
