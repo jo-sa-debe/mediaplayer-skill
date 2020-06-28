@@ -19,8 +19,8 @@ class Mediaplayer(MycroftSkill):
         self.add_event('mycroft.audio.service.resume', self.play_resume)
         self.add_event('mycroft.audio.service.pause', self.play_pause)
         self.add_event('mycroft.audio.service.stop', self.play_stop)
-        self.add_event('mycroft.audio.service.track_info', self.track_info)
-        self.add_event('mycroft.audio.service.track_info_reply', self.track_info_reply)
+        #self.add_event('mycroft.audio.service.track_info', self.track_info)
+        #self.add_event('mycroft.audio.service.track_info_reply', self.track_info_reply)
         
         self.audio_service = AudioService(self.bus) 
         self.vlc_audio_path = Path(str(self.settings.get('vlc_audio_path')))
@@ -39,7 +39,10 @@ class Mediaplayer(MycroftSkill):
 
     @intent_handler('mediaplayer.next.intent')
     def handle_mediaplayer_next(self, message): 
-        self.play_next(message)       
+        if self.is_playing:
+            self.play_next(message)  
+        else:
+            self.speak("Nothing playing")     
         
 
     @intent_handler('mediaplayer.prev.intent')
