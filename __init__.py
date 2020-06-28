@@ -90,6 +90,7 @@ class Mediaplayer(CommonPlaySkill):
 
     def init_vlc_audio_list(self):
         self.vlc_all_tracks = self.load_files_in_audio_path(self.vlc_audio_path)
+        self.audio_service.queue(self.vlc_all_tracks)
         self.current_track = []
 
 
@@ -103,8 +104,8 @@ class Mediaplayer(CommonPlaySkill):
         if not self.is_playing:
             if not self.vlc_all_tracks:
                 self.init_vlc_audio_list()
-    
-            self.audio_service.play(self.vlc_all_tracks, 'vlc')
+            self.audio_service.play()
+            #self.audio_service.play(self.vlc_all_tracks, 'vlc')
             self.is_playing = True
             self.set_init_track()
 
