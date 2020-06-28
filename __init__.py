@@ -105,6 +105,8 @@ class Mediaplayer(MycroftSkill):
             if self.current_track == self.audio_service.track_info:
                 self.speak(" current track still playing, so request next")
                 self.audio_service.next()
+        else:
+            self.speak("Nothing playing")
         pass
         
 
@@ -129,12 +131,16 @@ class Mediaplayer(MycroftSkill):
         if self.is_playing:
             self.audio_service.stop()
             self.is_playing = False
+        else:
+            self.speak("Nothing playing")
         pass
 
     def play_pause(self, message):
         if self.is_playing:
             self.audio_service.pause()
             self.is_playing = False
+        else:
+            self.speak("Nothing playing")
         pass
 
 
