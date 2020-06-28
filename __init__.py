@@ -1,11 +1,13 @@
 from mycroft import MycroftSkill, intent_file_handler, intent_handler
 from mycroft.messagebus import Message
 from mycroft.skills.audioservice import AudioService
+from mycroft.skills.common_play_skill import CommonPlaySkill, CPSMatchLevel
+import random
 import os
 from pathlib import Path
 
 
-class Mediaplayer(MycroftSkill):
+class Mediaplayer(CommonPlaySkill):
     def __init__(self):
         MycroftSkill.__init__(self)
 
@@ -174,8 +176,20 @@ class Mediaplayer(MycroftSkill):
         self.current_track = self.audio_service.track_info()
         self.track_change_request_in_progress = False
 
+    def CPS_match_query_phrase(self, phrase):
+        pass
 
+    def CPS_start(self, phrase, data):
+        pass
 
+    def CPS_send_status(self, artist='', track='', image=''):
+        data = {'skill': self.name,
+                'artist': artist,
+                'track': track,
+                'image': image,
+                'status': None  # TODO Add status system
+                }
+        self.bus.emit(Message('play:status', data))
 
 
 def create_skill():
