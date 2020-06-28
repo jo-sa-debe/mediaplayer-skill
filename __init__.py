@@ -91,35 +91,22 @@ class Mediaplayer(MycroftSkill):
 
     def play(self, message):
         self.speak("event: play")
-        self.init_vlc_audio_list()
-        self.audio_service.play(self.vlc_all_tracks, 'vlc')
-        self.is_playing = True
-        # if not self.audio_service.is_playing:
-        #     if not self.vlc_all_tracks:
-        #        
-                
-        #     self.speak("Start Playing")
-            
-        # else:
-        #     self.speak("Already playing")
-        # pass
-        
+        if not self.vlc_all_tracks:
+            self.init_vlc_audio_list()
+
+        if not self.is_playing:    
+            self.audio_service.play(self.vlc_all_tracks, 'vlc')
+            self.is_playing = True
+        else:
+            self.speak("Already playing")
+
 
 
     def play_next(self, message):
         self.speak("event: next")
-        if self.audio_service.is_playing:
+        if self.is_playing:
             self.speak("jumping to next track")
             self.audio_service.next()
-            old_track = self.current_track
-            self.speak("old : " + str(old_track))
-            cur_track = self.track_info(message)
-            self.speak("current : " + str(cur_track))
-            if not self.other_track_requested:
-                self.audio_service.next()
-                self.other_track_requested = True
-            elif old_track != cur_track:
-                self.other_track_requested = False 
         pass
         
 
