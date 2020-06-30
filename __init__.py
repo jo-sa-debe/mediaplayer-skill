@@ -18,7 +18,7 @@ class Mediaplayer(CommonPlaySkill):
         self.playlists = []
         self.vlc_all_tracks = []
 
-        #self.add_event('mycroft.audio.service.next', self.play_next)
+        #self.add_event('mycroft.audio.service.next', self.handle_mediaplayer_infohandle_mediaplayer_infohandle_mediaplayer_infoplay_next)
         #self.add_event('mycroft.audio.service.prev', self.play_prev)
         self.add_event('mycroft.audio.service.resume', self.play_resume)
         self.add_event('mycroft.audio.service.pause', self.play_pause)
@@ -29,9 +29,33 @@ class Mediaplayer(CommonPlaySkill):
         self.current_track = []
         self.track_change_request_in_progress = False
         self.is_playing = False
-       
 
-    @intent_handler('mediaplayer.info.intent')
+        self.register_all_intents()
+    
+    def register_all_intents(self):
+        self.register_intent_file('mediaplayer.next.intent', self.handle_mediaplayer_next)
+        self.register_intent_file('mediaplayer.prev.intent', self.handle_mediaplayer_prev)
+        self.register_intent_file('mediaplayer.stop.intent', self.handle_mediaplayer_stop)
+        self.register_intent_file('mediaplayer.pause.intent', self.handle_mediaplayer_pause)
+        self.register_intent_file('mediaplayer.resume.intent', self.handle_mediaplayer_resume)
+        self.register_intent_file('mediaplayer.info.intent', self.handle_mediaplayer_info)
+
+    def enable_play_control_intents(self):
+        self.enable_intent("mediaplayer.next.intent")
+        self.enable_intent("mediaplayer.prev.intent")
+        self.enable_intent("mediaplayer.stop.intent")
+        self.enable_intent("mediaplayer.pause.intent")
+        self.enable_intent("mediaplayer.resume.intent")
+
+    def disable_play_controls(self):
+        self.disable_intent("mediaplayer.next.intent")
+        self.disable_intent("mediaplayer.prev.intent")
+        self.disable_intent("mediaplayer.stop.intent")
+        self.disable_intent("mediaplayer.pause.intent")
+        self.disable_intent("mediaplayer.resume.intent")        
+
+
+
     def handle_mediaplayer_info(self, message):
         self.speak_dialog('mediaplayer')
         self.speak("looking for backends.")
@@ -39,7 +63,6 @@ class Mediaplayer(CommonPlaySkill):
             backend_text = "found " + str(backend)
             self.speak(backend_text)
 
-    @intent_handler('mediaplayer.next.intent')
     def handle_mediaplayer_next(self, message): 
         if self.is_playing:
             if not self.is_track_change_request_in_progress():
@@ -48,14 +71,12 @@ class Mediaplayer(CommonPlaySkill):
             self.speak("Nothing playing")     
         
 
-    @intent_handler('mediaplayer.prev.intent')
     def handle_mediaplayer_prev(self, message): 
         if self.is_playing:
             self.play_prev(message)     
         else:
             self.speak("Nothing playing")
         
-    @intent_handler('mediaplayer.stop.intent')
     def handle_mediaplayer_stop(self, message):  
         if self.is_playing:
             self.play_stop(message)
@@ -63,13 +84,13 @@ class Mediaplayer(CommonPlaySkill):
             self.speak("Nothing playing")   
         
 
-    @intent_handler('mediaplayer.pause.intent')
-    def handle_mediaplayer_pause(self, message):    
-        if self.is_playing:
-            self.play_pause(message)
-        else:
-            self.speak("Nothing playing")
-        
+    def handle_mediaplayer_pause(self, message):  
+        self.speak("pause")  
+        self.play_pause(message)
+
+    def handle_mediaplayer_resume(self, message):   
+        self.speak("resume") 
+        pass
 
     # @intent_handler('mediaplayer.play.intent')
     # def handle_mediaplayer_play(self, message):
@@ -109,8 +130,7 @@ class Mediaplayer(CommonPlaySkill):
     def add_tracks_to_list(self, tracks, list):
         pass
 
-    #def play(self, message):
-    def play(self):
+    def play(self, message):
         if not self.is_playing:
             if not self.vlc_all_tracks:
                 self.init_vlc_audio_list()
@@ -121,7 +141,7 @@ class Mediaplayer(CommonPlaySkill):
 
 
     def play_next(self, message):
-        if self.is_playing:
+        if self.audio_service.is_playing():
             if not self.is_track_change_request_in_progress():
                 self.start_track_change_request()
                 self.audio_service.next()
@@ -136,18 +156,18 @@ class Mediaplayer(CommonPlaySkill):
         pass
 
     def play_resume(self, message):
-        if not self.is_playing:
+        if self.audio_service.is_playing():
             self.audio_service.resume()
             self.is_playing = True
 
     def play_stop(self, message):
-        if self.is_playing:
+        if self.audio_service.is_playing():
             self.audio_service.stop()
             self.is_playing = False
 
 
     def play_pause(self, message):
-        if self.is_playing:
+        if self.audio_service.is_playing():
             self.audio_service.pause()
             self.is_playing = False
 
@@ -185,16 +205,16 @@ class Mediaplayer(CommonPlaySkill):
 
     def CPS_match_query_phrase(self, phrase):
         self.speak("phrase : " + str(phrase))
-
+        
         if self.voc_match(phrase, "mediaplayer"):
             level = CPSMatchLevel.GENERIC
             phrase = "mediaplayer"
-
+        
         return (phrase, level)
 
     def CPS_start(self, phrase, data):
         self.speak("CPS start")
-        self.play()
+        self.play(phrase)
         pass
 
 
