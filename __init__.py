@@ -17,12 +17,6 @@ class Mediaplayer(CommonPlaySkill):
         super().initialize()
         self.playlists = []
         self.vlc_all_tracks = []
-
-
-        #self.add_event('mycroft.audio.service.resume', self.play_resume)
-
-        #self.add_event('mycroft.audio.service.stop', self.play_stop)
-        
         self.audio_service = AudioService(self.bus) 
         self.vlc_audio_path = Path(str(self.settings.get('vlc_audio_path')))
         self.current_track = []
@@ -104,7 +98,7 @@ class Mediaplayer(CommonPlaySkill):
                 track_path = Path(dirpath)
                 track_path = track_path / file
                 track_uri = 'file://' + str(track_path.resolve())
-                track_data = (track_uri , 'mp3')
+                track_data = (track_uri )
                 tracks.append(track_data)
         return tracks
 
@@ -131,7 +125,7 @@ class Mediaplayer(CommonPlaySkill):
         if not self.audio_service.is_playing:
             if not self.vlc_all_tracks:
                 self.init_vlc_audio_list()
-            #self.audio_service.play()
+            #self.audio_service.play(self.audio_service.)
             self.audio_service.play(self.vlc_all_tracks, 'vlc')
             self.set_init_track()
 
