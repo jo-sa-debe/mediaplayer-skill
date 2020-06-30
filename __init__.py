@@ -128,13 +128,14 @@ class Mediaplayer(CommonPlaySkill):
             self.speak("not playing")
             if not self.vlc_all_tracks:
                 self.init_vlc_audio_list()
+                self.set_init_track()
             else:
-                self.audio_service.play()
+                self.speak("playing")
+                self.audio_service.resume()
             #self.audio_service.play(self.audio_service.)
             #self.audio_service.play(self.vlc_all_tracks, 'vlc')
-            self.set_init_track()
-        else:
-             self.speak("playing")
+            
+             
 
     def play_next(self, message):
 
