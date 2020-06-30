@@ -28,7 +28,6 @@ class Mediaplayer(CommonPlaySkill):
         self.vlc_audio_path = Path(str(self.settings.get('vlc_audio_path')))
         self.current_track = []
         self.track_change_request_in_progress = False
-        self.is_playing = False
 
         self.register_all_intents()
     
@@ -63,7 +62,7 @@ class Mediaplayer(CommonPlaySkill):
             self.speak(backend_text)
 
     def handle_mediaplayer_next(self, message): 
-        if self.is_playing:
+        if self.audio_service.is_playing:
             if not self.is_track_change_request_in_progress():
                 self.play_next(message)  
         else:
@@ -71,13 +70,13 @@ class Mediaplayer(CommonPlaySkill):
         
 
     def handle_mediaplayer_prev(self, message): 
-        if self.is_playing:
+        if self.audio_service.is_playing:
             self.play_prev(message)     
         else:
             self.speak("Nothing playing")
         
     def handle_mediaplayer_stop(self, message):  
-        if self.is_playing:
+        if self.audio_service.is_playing:
             self.play_stop(message)
         else:
             self.speak("Nothing playing")   
@@ -130,12 +129,11 @@ class Mediaplayer(CommonPlaySkill):
         pass
 
     def play(self, message):
-        if not self.is_playing:
+        if not self.audio_service.is_playing:
             if not self.vlc_all_tracks:
                 self.init_vlc_audio_list()
             #self.audio_service.play()
             self.audio_service.play(self.vlc_all_tracks, 'vlc')
-            self.is_playing = True
             self.set_init_track()
 
 
@@ -157,18 +155,14 @@ class Mediaplayer(CommonPlaySkill):
     def play_resume(self, message):
         if self.audio_service.is_playing:
             self.audio_service.resume()
-            self.is_playing = True
 
     def play_stop(self, message):
         if self.audio_service.is_playing:
             self.audio_service.stop()
-            self.is_playing = False
-
 
     def play_pause(self, message):
         if self.audio_service.is_playing:
             self.audio_service.pause()
-            self.is_playing = False
 
 
 
