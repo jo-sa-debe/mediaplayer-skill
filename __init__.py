@@ -18,11 +18,10 @@ class Mediaplayer(CommonPlaySkill):
         self.playlists = []
         self.vlc_all_tracks = []
 
-        #self.add_event('mycroft.audio.service.next', self.play_next)
-        #self.add_event('mycroft.audio.service.prev', self.play_prev)
-        self.add_event('mycroft.audio.service.resume', self.play_resume)
-        #self.add_event('mycroft.audio.service.pause', self.play_pause)
-        self.add_event('mycroft.audio.service.stop', self.play_stop)
+
+        #self.add_event('mycroft.audio.service.resume', self.play_resume)
+
+        #self.add_event('mycroft.audio.service.stop', self.play_stop)
         
         self.audio_service = AudioService(self.bus) 
         self.vlc_audio_path = Path(str(self.settings.get('vlc_audio_path')))
