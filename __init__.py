@@ -184,7 +184,10 @@ class Mediaplayer(CommonPlaySkill):
 
     def CPS_match_query_phrase(self, phrase):
         self.speak("phrase : " + str(phrase))
-        self.play()
+        if self.voc_match(phrase, "Mediaplayer"):
+            return ("mediaplayer", CPSMatchLevel.GENERIC)
+        
+        
         level = CPSMatchLevel.MULTI_KEY
         track = self.current_track
         return phrase, level, track
@@ -192,6 +195,7 @@ class Mediaplayer(CommonPlaySkill):
     def CPS_start(self, phrase, data):
         self.speak("phrase : " + str(phrase))
         self.speak("data : " + str(data))
+        self.play()
         pass
 
 
