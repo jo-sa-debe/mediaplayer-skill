@@ -10,7 +10,8 @@ from pathlib import Path
 
 class Mediaplayer(CommonPlaySkill):
     def __init__(self):
-        MycroftSkill.__init__(self)
+        #MycroftSkill.__init__(self)
+        super().__init__(name="Mediaplayer")
 
     def initialize(self): 
         super().initialize()
