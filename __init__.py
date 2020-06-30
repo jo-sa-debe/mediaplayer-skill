@@ -25,12 +25,13 @@ class Mediaplayer(CommonPlaySkill):
         self.register_all_intents()
     
     def register_all_intents(self):
-        self.register_intent_file('mediaplayer.next.intent', self.handle_mediaplayer_next)
-        self.register_intent_file('mediaplayer.prev.intent', self.handle_mediaplayer_prev)
-        self.register_intent_file('mediaplayer.stop.intent', self.handle_mediaplayer_stop)
-        self.register_intent_file('mediaplayer.pause.intent', self.handle_mediaplayer_pause)
-        self.register_intent_file('mediaplayer.resume.intent', self.handle_mediaplayer_resume)
-        self.register_intent_file('mediaplayer.info.intent', self.handle_mediaplayer_info)
+        #self.register_intent_file('mediaplayer.next.intent', self.handle_mediaplayer_next)
+        #self.register_intent_file('mediaplayer.prev.intent', self.handle_mediaplayer_prev)
+        #self.register_intent_file('mediaplayer.stop.intent', self.handle_mediaplayer_stop)
+        #self.register_intent_file('mediaplayer.pause.intent', self.handle_mediaplayer_pause)
+        #self.register_intent_file('mediaplayer.resume.intent', self.handle_mediaplayer_resume)
+        #self.register_intent_file('mediaplayer.info.intent', self.handle_mediaplayer_info)
+        pass
 
     def enable_play_control_intents(self):
         self.enable_intent("mediaplayer.next.intent")
@@ -131,6 +132,7 @@ class Mediaplayer(CommonPlaySkill):
 
 
     def play_next(self, message):
+
         if self.audio_service.is_playing:
             if not self.is_track_change_request_in_progress():
                 self.start_track_change_request()
