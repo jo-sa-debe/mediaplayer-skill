@@ -134,9 +134,10 @@ class Mediaplayer(CommonPlaySkill):
     def play_next(self, message):
 
         if self.audio_service.is_playing:
-            if not self.is_track_change_request_in_progress():
-                self.start_track_change_request()
-                self.audio_service.next()
+            self.audio_service.next()
+            #if not self.is_track_change_request_in_progress():
+            #    self.start_track_change_request()
+            #    self.audio_service.next()
         pass
         
 
@@ -197,7 +198,8 @@ class Mediaplayer(CommonPlaySkill):
         if self.voc_match(phrase, "mediaplayer"):
             level = CPSMatchLevel.GENERIC
             phrase = "mediaplayer"
-        
+        else:
+            CPSMatchLevel.GENERIC
         return (phrase, level)
 
     def CPS_start(self, phrase, data):
