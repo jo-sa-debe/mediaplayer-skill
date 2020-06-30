@@ -18,7 +18,7 @@ class Mediaplayer(CommonPlaySkill):
         self.playlists = []
         self.vlc_all_tracks = []
 
-        #self.add_event('mycroft.audio.service.next', self.handle_mediaplayer_infohandle_mediaplayer_infohandle_mediaplayer_infoplay_next)
+        #self.add_event('mycroft.audio.service.next', self.play_next)
         #self.add_event('mycroft.audio.service.prev', self.play_prev)
         self.add_event('mycroft.audio.service.resume', self.play_resume)
         self.add_event('mycroft.audio.service.pause', self.play_pause)
@@ -53,7 +53,6 @@ class Mediaplayer(CommonPlaySkill):
         self.disable_intent("mediaplayer.stop.intent")
         self.disable_intent("mediaplayer.pause.intent")
         self.disable_intent("mediaplayer.resume.intent")        
-
 
 
     def handle_mediaplayer_info(self, message):
