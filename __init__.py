@@ -106,10 +106,10 @@ class Mediaplayer(CommonPlaySkill):
 
     def init_vlc_audio_list(self):
         self.vlc_all_tracks = self.load_files_in_audio_path(self.vlc_audio_path)
-        for track in self.vlc_all_tracks:
-            self.audio_service.play(track)
-            self.vlc_all_tracks_info.append([ track, self.audio_service.track_info()])
-            self.audio_service.pause()
+        # for track in self.vlc_all_tracks:
+        #     self.audio_service.play(track)
+        #     self.vlc_all_tracks_info.append([ track, self.audio_service.track_info()])
+        #     self.audio_service.pause()
         self.queue_tracks(self.vlc_all_tracks)    
         
         self.current_track = []
@@ -146,7 +146,6 @@ class Mediaplayer(CommonPlaySkill):
 
         if self.audio_service.is_playing:
             self.audio_service.next()
-            self.speak(str(self.audio_service.track_info()))
             #if not self.is_track_change_request_in_progress():
             #    self.start_track_change_request()
             #    self.audio_service.next()
