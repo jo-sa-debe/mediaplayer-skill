@@ -140,7 +140,7 @@ class Mediaplayer(CommonPlaySkill):
 
 
     def play_next(self, message):
-        if self.audio_service.is_playing():
+        if self.audio_service.is_playing:
             if not self.is_track_change_request_in_progress():
                 self.start_track_change_request()
                 self.audio_service.next()
@@ -155,18 +155,18 @@ class Mediaplayer(CommonPlaySkill):
         pass
 
     def play_resume(self, message):
-        if self.audio_service.is_playing():
+        if self.audio_service.is_playing:
             self.audio_service.resume()
             self.is_playing = True
 
     def play_stop(self, message):
-        if self.audio_service.is_playing():
+        if self.audio_service.is_playing:
             self.audio_service.stop()
             self.is_playing = False
 
 
     def play_pause(self, message):
-        if self.audio_service.is_playing():
+        if self.audio_service.is_playing:
             self.audio_service.pause()
             self.is_playing = False
 
