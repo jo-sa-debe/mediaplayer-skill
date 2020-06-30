@@ -126,7 +126,7 @@ class Mediaplayer(CommonPlaySkill):
             if not self.vlc_all_tracks:
                 self.init_vlc_audio_list()
             #self.audio_service.play(self.audio_service.)
-            self.audio_service.play(self.vlc_all_tracks, 'vlc')
+            #self.audio_service.play(self.vlc_all_tracks, 'vlc')
             self.set_init_track()
 
 
