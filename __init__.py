@@ -22,7 +22,7 @@ class Mediaplayer(CommonPlaySkill):
         self.vlc_audio_path = Path(str(self.settings.get('vlc_audio_path')))
         self.current_track = []
         self.track_change_request_in_progress = False
-
+        #self.add_event("")
         self.register_all_intents()
     
     def register_all_intents(self):
@@ -140,6 +140,7 @@ class Mediaplayer(CommonPlaySkill):
                 self.set_init_track()
             #self.audio_service.play(self.audio_service.)
             #self.audio_service.play(self.vlc_all_tracks, 'vlc')
+        pass
             
              
 
