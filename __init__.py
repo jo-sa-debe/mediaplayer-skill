@@ -211,7 +211,7 @@ class Mediaplayer(CommonPlaySkill):
             level = CPSMatchLevel.GENERIC
             phrase = "mediaplayer"
         else:
-            CPSMatchLevel.GENERIC
+            level = CPSMatchLevel.GENERIC
         return (phrase, level)
 
     def CPS_start(self, phrase, data):
