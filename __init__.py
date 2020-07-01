@@ -214,6 +214,12 @@ class Mediaplayer(CommonPlaySkill):
         return (phrase, level)
 
     def CPS_start(self, phrase, data):
+        data = {
+            "phrase": phrase,
+            "skill_id":  self.skill_id,
+            "service_name": self.spoken_name,
+   
+        }
         self.play(phrase)
         pass
 
